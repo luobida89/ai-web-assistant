@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}💬 智能对话与文件分析{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12">
+        <!-- 页面标题和描述 -->
+        <div class="text-center mb-5">
+            <h1 class="display-6 mb-3">💬 智能对话与文件分析</h1>
+            <p class="lead text-muted">你可以直接与AI对话，也可以上传一个文件，然后针对文件内容进行深度提问。</p>
+        </div>
+
+        <!-- 文件上传卡片 -->
+        <div class="card shadow-sm mb-4 upload-area {% if has_file %}file-loaded{% endif %}">
+            <div class="card-body">
+                <h5 class="card-title">📁 上传与分析文件</h5>
+                <p class="card-text text-muted">支持 .txt, .md, .pdf 格式的文件。上传后，你的问题将基于文件内容来回答。</p>
+                
+                <form method="POST" enctype="multipart/form-data" class="row g-2 align-items-center">
+                    <div class="col-auto">
+                        <input class="form-control" type="file" name="file" accept=".txt,.md,.pdf" id="fileInput">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">上传并分析</button>
+                    </div>
+                </form>
+
+                <!-- 文件上传后的状态提示 -->
+                {% if has_file %}
+                <div class="alert alert-success d-flex align-items-center justify-content-between mt-3" role="alert">
+                    <div>
+                        <strong>✅ 文件已加载：</strong> <code>{{ uploaded_filename }}</code>
+                        <p class="mb-0"><small>你现在可以基于此文件内容提问。</small></p>
+                    </div>
+                    <a href="{{ url_for('clear_file') }}" class="btn btn-sm btn-outline-danger">🗑️ 清除</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- 对话输入卡片 -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">💭 开始对话</h5>
+                <form method="POST" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-lg" 
+                               name="question" placeholder="输入你的问题..." 
+                               value="{{ user_input }}" required>
+                        <button class="btn btn-success btn-lg" type="submit">发送</button>
+                    </div>
+                    <div class="form-text mt-2">
+                        {% if has_file %}
+                        <span class="badge bg-info">当前处于文件分析模式</span>
+                        {% else %}
+                        <span class="badge bg-secondary">当前处于自由对话模式</span>
+                        {% endif %}
+                    </div>
+                </form>
+
+                <!-- AI回复区域 -->
+                {% if ai_reply %}
+                <div class="alert alert-light border" role="alert">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            {% if has_file %}
+                            <span class="badge bg-primary me-2">基于文件</span>
+                            {% else %}
+                            <span class="badge bg-secondary me-2">自由对话</span>
+                            {% endif %}
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h6 class="alert-heading">你的提问：</h6>
+                            <p class="mb-2 fst-italic">“{{ user_input }}”</p>
+                            <hr>
+                            <h6 class="alert-heading">AI分析：</h6>
+                            <p class="mb-0" style="white-space: pre-wrap;">{{ ai_reply }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

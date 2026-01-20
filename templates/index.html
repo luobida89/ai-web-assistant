@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}🌟 我的AI助手主页{% endblock %}
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="display-5 fw-bold mb-4">欢迎使用你的AI智能助手</h1>
+    <p class="lead mb-4">这是一个融合了前沿大模型技术与Web开发实践的个人项目。<br>从零开始，一步步构建出功能完整的AI应用。</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="{{ url_for('chat') }}" class="btn btn-primary btn-lg px-4 gap-3">💬 开始体验</a>
+        <a href="{{ url_for('about') }}" class="btn btn-outline-secondary btn-lg px-4">ℹ️ 了解更多</a>
+    </div>
+    <div class="mt-5">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">🤖 AI对话</h5>
+                        <p class="card-text">与先进的AI模型进行自然、流畅的对话，获取信息、灵感和帮助。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">📄 文件分析</h5>
+                        <p class="card-text">上传文档，让AI深度理解内容，并进行总结、问答或翻译。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">🌐 Web应用</h5>
+                        <p class="card-text">基于Flask框架的响应式Web应用，随时随地通过浏览器访问。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
