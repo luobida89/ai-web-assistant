@@ -1,5 +1,5 @@
 # 配置文件
-config.py
+config_local.py
 .env
 *.local.env
 
